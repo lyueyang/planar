@@ -1,0 +1,23 @@
+body {
+    background-color: rgb(112, 176, 232);
+}
+
+div#login {
+    background-color: white;
+    width: 360px; 
+    height: 420px; 
+    position: absolute;
+    top:  50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+p#loginheader {
+    color: grey;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.button#loginButton {
+    color: green;
+}
