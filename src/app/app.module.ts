@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 
+import { NotetakingModule} from './notetaking/notetaking.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,8 @@ import { RegisterComponent } from './components/register/register.component';
     FlexLayoutModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NotetakingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

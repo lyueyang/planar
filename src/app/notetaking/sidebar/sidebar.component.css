@@ -1,0 +1,28 @@
+.main-sidenav-container {
+  margin-top: 64px;
+}
+
+.sidebar {
+  width: 25vh;
+  text-align: center;
+}
+
+#subjects {
+  text-align: center;
+  align-content: center;
+}
+
+#header {
+  margin-top: 16px;
+}
+
+.mat-list-item {
+  text-align: center;
+}
+
+.mat-list {
+}
+
+#close {
+  width: 80px;
+}

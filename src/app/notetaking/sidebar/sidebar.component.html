@@ -1,0 +1,17 @@
+<mat-sidenav-container class="main-sidenav-container" fxLayout="vertical" fxFlexFill>
+  <mat-sidenav #sidenav class="sidebar" mode="side">
+    <h2 class="mat-h2" id="header">My Modules</h2>
+
+    <mat-list id="subjects">
+      <mat-list-item>module1</mat-list-item>
+      <mat-list-item>module2</mat-list-item>
+      <mat-list-item>module3</mat-list-item>
+      <mat-list-item>module4</mat-list-item>
+    </mat-list>
+    <p><button mat-button (click)="sidenav.toggle()" id="close">Hide</button></p>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <p><button mat-button (click)="sidenav.toggle()">Sidebar</button></p>
+  </mat-sidenav-content>
+</mat-sidenav-container>
