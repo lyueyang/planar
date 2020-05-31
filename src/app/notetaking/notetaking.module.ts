@@ -9,6 +9,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditingDialogComponent } from './editingDialog/editingDialog.component';
 
+import {LoginComponent} from '../components/login/login.component';
+
 @NgModule({
   declarations: [NotetakingComponent, SidebarComponent, EditingDialogComponent],
   imports: [
@@ -20,4 +22,5 @@ import { EditingDialogComponent } from './editingDialog/editingDialog.component'
     MatDialogModule
   ]
 })
-export class NotetakingModule { }
+export class NotetakingModule {
+}

@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { AngularMaterialModule } from './angular-material.module';
 import { AppRoutingModule } from './app-routing.module';
 
+import { HttpClientModule } from '@angular/common/http';
+import { OAuthModule } from 'angular-oauth2-oidc';
+
 import { LoginComponent } from './components/login/login.component';
 
 import { NotetakingModule} from './notetaking/notetaking.module';
@@ -25,6 +28,8 @@ import { NotetakingModule} from './notetaking/notetaking.module';
     FlexLayoutModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
+    OAuthModule.forRoot(),
     ReactiveFormsModule,
     NotetakingModule
   ],

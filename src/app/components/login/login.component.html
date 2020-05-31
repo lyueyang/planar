@@ -5,7 +5,8 @@
       <mat-card-title>Log in</mat-card-title>
     </mat-card-header>
 
-    <button mat-stroked-button color="accent" class="btn-block">Log in with
+    <button *ngIf="isLoggedIn()" mat-stroked-button color="warn" class="btn-block" (click)="logout()">Logout</button>
+    <button *ngIf="!isLoggedIn()" mat-stroked-button color="accent" class="btn-block" (click)="login()">Log in with
       <img src="assets/images/google.svg">
     </button>
   </mat-card>
