@@ -3,7 +3,8 @@
 }
 
 .sidebar {
-  width: 25vh;
+  width: 10vw;
+  min-width: 150px;
   text-align: center;
 }
 
