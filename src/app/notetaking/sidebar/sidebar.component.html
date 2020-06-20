@@ -1,4 +1,4 @@
-<mat-sidenav-container class="main-sidenav-container" fxLayout="vertical" fxFlexFill>
+<mat-sidenav-container class="main-sidenav-container" fxLayout="vertical" fxFlexFill autosize>
   <mat-sidenav #sidenav class="sidebar" mode="side" opened="true">
     <h2 class="mat-h2" id="header">My Modules</h2>
 
@@ -6,18 +6,29 @@
 
     <mat-list id="subjects">
       <mat-list-item *ngFor="let subject of subjects">
-        <button mat-flat-button fxFlexFill>{{subject.name}}</button>
+        <mat-menu #appMenu="matMenu">
+          <button mat-menu-item>Notes</button>
+          <button mat-menu-item>Assignments</button>
+        </mat-menu>
+
+        <button mat-flat-button fxFlexFill
+                (click)="selectSubject(subject.name)"
+                [style.background-color] = "isSelectedSubject(subject.name) ? '#DCDCDC' : 'transparent'"
+                [mat-menu-trigger-for]= "appMenu"
+        >
+          {{subject.name}}
+        </button>
       </mat-list-item>
     </mat-list>
 
     <mat-divider></mat-divider>
-      <p><button mat-button (click)="beginEdit()" id="edit" *ngIf="!editing">Edit</button></p>
+    <button mat-button (click)="beginEdit()" id="edit" *ngIf="!editing">Edit</button>
 <!--      <p><button mat-button (click)="confirmEdit()" id="done" *ngIf="editing">Done</button></p>-->
-      <p><button mat-button (click)="sidenav.toggle()" id="close">Hide</button></p>
+    <button mat-button (click)="sidenav.toggle()" id="close">Hide</button>
 
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <p><button mat-button (click)="sidenav.toggle()">Sidebar</button></p>
+   <button mat-button (click)="sidenav.toggle()" *ngIf="!sidenav.opened" class="sidebar-toggle-button"><i class="material-icons">menu</i></button>
   </mat-sidenav-content>
 </mat-sidenav-container>

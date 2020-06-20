@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { EditingDialogComponent } from './editingDialog/editingDialog.component';
 
 import {LoginComponent} from '../components/login/login.component';
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [NotetakingComponent, SidebarComponent, EditingDialogComponent],
@@ -19,7 +20,8 @@ import {LoginComponent} from '../components/login/login.component';
     RouterModule,
     AngularMaterialModule,
     FlexLayoutModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule
   ]
 })
 export class NotetakingModule {
