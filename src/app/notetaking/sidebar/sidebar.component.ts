@@ -31,7 +31,6 @@ export class SidebarComponent implements OnInit {
 
   selectSubject(name) {
     this.selected = name;
-
     // this.selected = this.selected === name ? 'NONE' : name;
   }
 
@@ -39,9 +38,9 @@ export class SidebarComponent implements OnInit {
     return this.selected === name;
   }
 
-  closeMenu(name) {
+  openMenu(name) {
     if (this.isSelectedSubject(name)) {
-      this.trigger.closeMenu();
+      this.trigger.openMenu();
     }
   }
 }

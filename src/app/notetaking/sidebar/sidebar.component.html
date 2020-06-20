@@ -13,6 +13,7 @@
 
         <button mat-flat-button fxFlexFill
                 (click)="selectSubject(subject.name)"
+                (mouseover) = "openMenu(subject.name)"
                 [style.background-color] = "isSelectedSubject(subject.name) ? '#DCDCDC' : 'transparent'"
                 [mat-menu-trigger-for]= "appMenu"
         >
