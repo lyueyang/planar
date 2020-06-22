@@ -16,7 +16,7 @@
                 (mouseover) = "openMenu(subject.name)"
                 [style.background-color] = "isSelectedSubject(subject.name) ? '#DCDCDC' : 'transparent'"
                 [mat-menu-trigger-for]= "appMenu"
-        >
+                >
           {{subject.name}}
         </button>
       </mat-list-item>
@@ -24,12 +24,22 @@
 
     <mat-divider></mat-divider>
     <button mat-button (click)="beginEdit()" id="edit" *ngIf="!editing">Edit</button>
-<!--      <p><button mat-button (click)="confirmEdit()" id="done" *ngIf="editing">Done</button></p>-->
-    <button mat-button (click)="sidenav.toggle()" id="close">Hide</button>
+    <button mat-button
+            (click)="sidenav.toggle()"
+            matTooltip="Hide Sidebar"
+            [matTooltipPosition]= "'right'"
+            [matTooltipShowDelay]= "500"
+            id="close">Hide</button>
 
   </mat-sidenav>
 
   <mat-sidenav-content>
-   <button mat-button (click)="sidenav.toggle()" *ngIf="!sidenav.opened" class="sidebar-toggle-button"><i class="material-icons">menu</i></button>
+   <button mat-icon-button
+           (click)="sidenav.toggle()"
+           *ngIf="!sidenav.opened"
+           matTooltip="Show Modules"
+           [matTooltipPosition]= "'right'"
+           [matTooltipShowDelay]= "500"
+           class="sidebar-toggle-button"><i class="material-icons">menu</i></button>
   </mat-sidenav-content>
 </mat-sidenav-container>

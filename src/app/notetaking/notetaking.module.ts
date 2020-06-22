@@ -11,18 +11,20 @@ import { EditingDialogComponent } from './editingDialog/editingDialog.component'
 
 import {LoginComponent} from '../components/login/login.component';
 import {MatMenuModule} from "@angular/material/menu";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [NotetakingComponent, SidebarComponent, EditingDialogComponent],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    RouterModule,
-    AngularMaterialModule,
-    FlexLayoutModule,
-    MatDialogModule,
-    MatMenuModule
-  ]
+    imports: [
+        CommonModule,
+        BrowserModule,
+        RouterModule,
+        AngularMaterialModule,
+        FlexLayoutModule,
+        MatDialogModule,
+        MatMenuModule,
+        MatTooltipModule
+    ]
 })
 export class NotetakingModule {
 }
