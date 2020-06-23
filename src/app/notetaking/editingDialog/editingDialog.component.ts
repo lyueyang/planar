@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SubjectEditorService} from '../sidebar/subject-editor.service';
+import { SubjectEditorService} from './subject-editor.service';
 import { subjects } from '../subjects';
 
 @Component({
