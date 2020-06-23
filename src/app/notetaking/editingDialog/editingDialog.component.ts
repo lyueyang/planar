@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SubjectEditorService} from './subject-editor.service';
 import { subjects } from '../subjects';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-editing-dialog',
@@ -11,7 +12,7 @@ export class EditingDialogComponent implements OnInit {
   subjects = subjects;
   extraInputs: number;
 
-  constructor(private userSubject: SubjectEditorService) { }
+  constructor(private userSubject: SubjectEditorService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.extraInputs = 1;
@@ -25,12 +26,12 @@ export class EditingDialogComponent implements OnInit {
   }
 
   counter(i: number) {
-    console.warn('counter!: ' + this.extraInputs);
     this.extraInputs = i;
     return new Array(i);
   }
 
   confirmEdit() {
+    this.snackBar.open('Modules Saved!');
     this.userSubject.confirmEdit();
   }
 }
