@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 
 import {AuthConfig, OAuthService} from 'angular-oauth2-oidc';
+import {LoginService} from './components/login/login.service';
 
 export const authCodeFlowConfig: AuthConfig = {
   // Url of the Identity Provider
@@ -41,7 +42,7 @@ export const authCodeFlowConfig: AuthConfig = {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private oauthService: OAuthService) {
+  constructor(private oauthService: OAuthService, private loginService: LoginService) {
     this.oauthService.configure(authCodeFlowConfig);
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
@@ -51,12 +52,15 @@ export class AppComponent {
     return this.oauthService.hasValidAccessToken();
   }
 
+  public verify() {
+    console.log(this.loginService.verify(this.oauthService.getIdToken()));
+  }
+
   public get name() {
     const claims = this.oauthService.getIdentityClaims();
     if (!claims) {
       return null;
     }
-    console.log(claims);
     // @ts-ignore
     return claims.name;
   }

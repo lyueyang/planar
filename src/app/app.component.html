@@ -9,6 +9,7 @@
     <div *ngIf="isLoggedIn()">
     <a>Hello {{name}}! </a>
     <a mat-button mat-raised-button color="warn" routerLink="loginlanding" (click)="logout()">Log out</a>
+      <a mat-button mat-raised-button (click)="verify()">verify</a>
     </div>
   </span>
 </mat-toolbar>

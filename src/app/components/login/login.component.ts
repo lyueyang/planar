@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {OAuthService} from 'angular-oauth2-oidc';
+import {LoginService} from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -8,14 +9,13 @@ import {OAuthService} from 'angular-oauth2-oidc';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private oauthService: OAuthService) { }
+  constructor(private oauthService: OAuthService, private loginService: LoginService) { }
 
   public isLoggedIn() {
     return this.oauthService.hasValidAccessToken();
   }
 
   public login() {
-    console.log('start login');
     this.oauthService.initImplicitFlow();
   }
 
@@ -25,5 +25,4 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

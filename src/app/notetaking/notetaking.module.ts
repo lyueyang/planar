@@ -8,8 +8,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditingDialogComponent } from './editingDialog/editingDialog.component';
 
-import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatMenuModule} from '@angular/material/menu';
 import { AssignmentsComponent } from './assignments/assignments.component';
 
 @NgModule({
