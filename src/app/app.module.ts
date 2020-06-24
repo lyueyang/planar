@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { AngularMaterialModule } from './angular-material.module';
@@ -31,7 +32,8 @@ import { NotetakingModule} from './notetaking/notetaking.module';
     HttpClientModule,
     OAuthModule.forRoot(),
     ReactiveFormsModule,
-    NotetakingModule
+    NotetakingModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

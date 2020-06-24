@@ -8,6 +8,6 @@ export class SubjectEditorService {
   constructor() { }
 
   confirmEdit() {
-    window.alert('Subjects saved!');
+    // other future uploading logic here
   }
 }
