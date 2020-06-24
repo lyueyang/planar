@@ -10,9 +10,10 @@ import { EditingDialogComponent } from './editingDialog/editingDialog.component'
 
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { AssignmentsComponent } from './assignments/assignments.component';
 
 @NgModule({
-  declarations: [NotetakingComponent, EditingDialogComponent],
+  declarations: [NotetakingComponent, EditingDialogComponent, AssignmentsComponent],
     imports: [
         CommonModule,
         BrowserModule,

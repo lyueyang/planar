@@ -19,8 +19,6 @@ export class EditingDialogComponent implements OnInit {
   }
 
   addCounter() {
-    console.warn('hello world!');
-    console.warn(this.extraInputs);
     this.extraInputs += 1;
     return new Array(this.extraInputs);
   }
@@ -31,7 +29,9 @@ export class EditingDialogComponent implements OnInit {
   }
 
   confirmEdit() {
-    this.snackBar.open('Modules Saved!');
+    this.snackBar.open('Modules Saved!', 'Dismiss', {
+      duration: 3000
+    });
     this.userSubject.confirmEdit();
   }
 }

@@ -55,6 +55,7 @@
 
 .sidebar-toggle-button {
   margin-top: 4px;
+  z-index: 3;
 }
 
 #subjects {
@@ -98,10 +99,6 @@
   width: 10vw;
   min-width: 150px;
   text-align: center;
-}
-
-.sidebar-toggle-button {
-  margin-top: 4px;
 }
 
 #subjects {

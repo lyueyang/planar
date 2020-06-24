@@ -1,4 +1,4 @@
-<mat-sidenav-container class="main-sidenav-container" fxLayout="vertical" fxFlexFill autosize>
+<mat-sidenav-container class="main-sidenav-container" fxLayout="vertical" fxFlexFill>
   <mat-sidenav #sidenav class="sidebar" mode="side" opened="true">
     <h2 class="mat-h2" id="header">My Modules</h2>
 
@@ -30,23 +30,20 @@
             [matTooltipPosition]= "'right'"
             [matTooltipShowDelay]= "500"
             id="close">Hide</button>
-
   </mat-sidenav>
 
-  <mat-sidenav-content>
-   <button mat-icon-button
-           (click)="sidenav.toggle()"
-           *ngIf="!sidenav.opened"
-           matTooltip="Show Modules"
-           [matTooltipPosition]= "'right'"
-           [matTooltipShowDelay]= "500"
-           class="sidebar-toggle-button">
-     <i class="material-icons">
-       menu
-     </i>
-   </button>
-    <mat-card-title>Assignments</mat-card-title>
-    <mat-divider></mat-divider>
-    <mat-card-title>Notes</mat-card-title>
+  <mat-sidenav-content fxFlexFill fxLayout="row" fxLayoutAlign="start none" style="background-color: white;">
+    <button mat-icon-button
+            (click)="sidenav.toggle()"
+            *ngIf="!sidenav.opened"
+            matTooltip="Show Modules"
+            [matTooltipPosition]= "'right'"
+            [matTooltipShowDelay]= "500"
+            class="sidebar-toggle-button">
+      <i class="material-icons">
+        menu
+      </i>
+    </button>
+    <app-assignments fxFill></app-assignments>
   </mat-sidenav-content>
 </mat-sidenav-container>
