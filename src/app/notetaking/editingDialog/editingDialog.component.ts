@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SubjectEditorService} from './subject-editor.service';
-import { subjects } from '../subjects';
+import subjects from '../subjects.json';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
@@ -9,7 +9,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./editingDialog.component.css']
 })
 export class EditingDialogComponent implements OnInit {
-  subjects = subjects;
+  subjects = subjects.subjects;
   extraInputs: number;
 
   constructor(private userSubject: SubjectEditorService, private snackBar: MatSnackBar) { }

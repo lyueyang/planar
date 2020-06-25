@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {MatMenuTrigger} from '@angular/material/menu';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {EditingDialogComponent} from './editingDialog/editingDialog.component';
-import {subjects} from './subjects';
+import subjects from './subjects.json';
 
 @Component({
   selector: 'app-notetaking',
