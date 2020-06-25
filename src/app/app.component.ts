@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 
 import {AuthConfig, OAuthService} from 'angular-oauth2-oidc';
 import {LoginService} from './components/login/login.service';
+import {environment} from '../environments/environment';
 
 export const authCodeFlowConfig: AuthConfig = {
   // Url of the Identity Provider
@@ -12,7 +13,7 @@ export const authCodeFlowConfig: AuthConfig = {
 
   // The SPA's id. The SPA is registerd with this id at the auth-server
   // clientId: 'server.code',
-  clientId: 'REMOVED',
+  clientId: environment.clientId,
 
   // Just needed if your auth server demands a secret. In general, this
   // is a sign that the auth server is not configured with SPAs in mind
