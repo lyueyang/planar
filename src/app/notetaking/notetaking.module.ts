@@ -11,9 +11,10 @@ import { EditingDialogComponent } from './editingDialog/editingDialog.component'
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatMenuModule} from '@angular/material/menu';
 import { AssignmentsComponent } from './assignments/assignments.component';
+import { WordEditorComponent } from './word-editor/word-editor.component';
 
 @NgModule({
-  declarations: [NotetakingComponent, EditingDialogComponent, AssignmentsComponent],
+  declarations: [NotetakingComponent, EditingDialogComponent, AssignmentsComponent, WordEditorComponent],
     imports: [
         CommonModule,
         BrowserModule,
