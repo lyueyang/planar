@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {FormBuilder, FormArray} from '@angular/forms';
 
 @Component({
   selector: 'app-assignments',
@@ -7,23 +8,25 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./assignments.component.css']
 })
 export class AssignmentsComponent implements OnInit {
-  extraInputs: number;
+  assignmentForm: FormArray;
 
-  constructor(private snackBar: MatSnackBar) {
+  constructor(private snackBar: MatSnackBar, private formBuilder: FormBuilder) {
+    this.assignmentForm = this.formBuilder.array([this.createAssignment()]);
   }
 
   ngOnInit(): void {
-    this.extraInputs = 1;
+    // get assignment form from backend here
   }
 
-  counter(i: number) {
-    this.extraInputs = i;
-    return new Array(i);
+  createAssignment() {
+    // group is used to allow for future detail such as deadline
+    return this.formBuilder.group({
+      assignmentDescription: ''
+    });
   }
 
-  addCounter() {
-    this.extraInputs += 1;
-    return new Array(this.extraInputs);
+  addAssignment() {
+    this.assignmentForm.push(this.createAssignment());
   }
 
   saveAssignments(){

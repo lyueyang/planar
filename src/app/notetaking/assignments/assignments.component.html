@@ -7,7 +7,7 @@
             matTooltip="Add assignments"
             [matTooltipPosition]= "'right'"
             [matTooltipShowDelay]= "500"
-            (click)="addCounter()">
+            (click)="addAssignment()">
       <i class="material-icons">add</i>
     </button>
 
@@ -22,9 +22,9 @@
 
   <mat-card-content>
     <mat-form-field
-      *ngFor='let indexNumber of counter(this.extraInputs); let i = index'
+      *ngFor='let assignment of this.assignmentForm.controls;'
       fxFlexFill>
-          <input matInput placeholder="Assignment {{i + 1}}" value="">
+          <input matInput value="">
     </mat-form-field>
   </mat-card-content>
 </mat-card>
