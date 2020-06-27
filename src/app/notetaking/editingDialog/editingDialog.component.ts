@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SubjectEditorService} from './subject-editor.service';
 import subjects from '../subjects.json';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {FormArray, FormBuilder} from '@angular/forms';
+import value from "*.json";
 
 @Component({
   selector: 'app-editing-dialog',
@@ -9,23 +11,39 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./editingDialog.component.css']
 })
 export class EditingDialogComponent implements OnInit {
-  subjects = subjects.subjects;
-  extraInputs: number;
+  subjectForm: FormArray;
+  // extraInputs: number;
 
-  constructor(private userSubject: SubjectEditorService, private snackBar: MatSnackBar) { }
+  constructor(private userSubject: SubjectEditorService,
+              private snackBar: MatSnackBar,
+              private formBuilder: FormBuilder) {
+    this.subjectForm = this.formBuilder.array(subjects.subjects);
+  }
 
   ngOnInit(): void {
-    this.extraInputs = 1;
+    // this.extraInputs = 1;
+    this.addSubject();
+    console.warn(this.subjectForm);
   }
 
-  addCounter() {
-    this.extraInputs += 1;
-    return new Array(this.extraInputs);
+  // addCounter() {
+  //   this.extraInputs += 1;
+  //   return new Array(this.extraInputs);
+  // }
+  //
+  // counter(i: number) {
+  //   this.extraInputs = i;
+  //   return new Array(i);
+  // }
+
+  createSubject() {
+    return this.formBuilder.group({
+      name: ''
+    });
   }
 
-  counter(i: number) {
-    this.extraInputs = i;
-    return new Array(i);
+  addSubject() {
+    this.subjectForm.push(this.createSubject());
   }
 
   confirmEdit() {
