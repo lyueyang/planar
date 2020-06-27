@@ -10,7 +10,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class SubjectEditorService {
+export class AssignmentHelperService {
 
   public static response: object;
   retrieveUrl = '/planar/api/v1.0/get_assignments';
@@ -20,18 +20,18 @@ export class SubjectEditorService {
 
   fetchData(): object {
     this.http.get(this.retrieveUrl, httpOptions).subscribe(
-      (data) => {SubjectEditorService.response = data; },
+      (data) => {AssignmentHelperService.response = data; },
       (error) => {console.error(error); }
     );
-    return SubjectEditorService.response;
+    return AssignmentHelperService.response;
   }
 
   submitEdit(info): object {
     this.http.post(this.submitUrl, JSON.stringify(info), httpOptions).subscribe(
-      (data) => {SubjectEditorService.response = data; },
+      (data) => {AssignmentHelperService.response = data; },
       (error) => {console.error(error); }
     );
 
-    return SubjectEditorService.response;
+    return AssignmentHelperService.response;
   }
 }

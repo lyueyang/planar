@@ -3,7 +3,6 @@ import { SubjectEditorService} from './subject-editor.service';
 import subjects from '../subjects.json';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormArray, FormBuilder} from '@angular/forms';
-import value from "*.json";
 
 @Component({
   selector: 'app-editing-dialog',
@@ -12,29 +11,19 @@ import value from "*.json";
 })
 export class EditingDialogComponent implements OnInit {
   subjectForm: FormArray;
-  // extraInputs: number;
 
-  constructor(private userSubject: SubjectEditorService,
+  constructor(private submitService: SubjectEditorService,
               private snackBar: MatSnackBar,
               private formBuilder: FormBuilder) {
     this.subjectForm = this.formBuilder.array(subjects.subjects);
   }
 
   ngOnInit(): void {
-    // this.extraInputs = 1;
     this.addSubject();
-    console.warn(this.subjectForm);
+    const reply = this.submitService.fetchData();
+    console.warn('Retrieving subjects: ' + reply);
+    // console.warn(this.subjectForm);
   }
-
-  // addCounter() {
-  //   this.extraInputs += 1;
-  //   return new Array(this.extraInputs);
-  // }
-  //
-  // counter(i: number) {
-  //   this.extraInputs = i;
-  //   return new Array(i);
-  // }
 
   createSubject() {
     return this.formBuilder.group({
@@ -50,6 +39,19 @@ export class EditingDialogComponent implements OnInit {
     this.snackBar.open('Modules Saved!', 'Dismiss', {
       duration: 3000
     });
-    this.userSubject.confirmEdit();
+
+    console.warn(this.subjectForm);
+
+    // remove empty rows
+    let index: number;
+    let tracker: string[] = [];
+    for (index = 0; index < this.subjectForm.controls.length; index++) {
+      if (this.subjectForm.at(index).value.name.length > 0) {
+        tracker.push(this.subjectForm.at(index).value);
+      }
+    }
+
+    const reply = this.submitService.submitEdit(tracker);
+    console.warn(reply);
   }
 }
