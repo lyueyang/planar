@@ -12,6 +12,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatMenuModule} from '@angular/material/menu';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { WordEditorComponent } from './word-editor/word-editor.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [NotetakingComponent, EditingDialogComponent, AssignmentsComponent, WordEditorComponent],
@@ -23,7 +25,9 @@ import { WordEditorComponent } from './word-editor/word-editor.component';
         FlexLayoutModule,
         MatDialogModule,
         MatMenuModule,
-        MatTooltipModule
+        MatTooltipModule,
+        ReactiveFormsModule,
+        FormsModule
     ]
 })
 export class NotetakingModule {

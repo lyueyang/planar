@@ -15,23 +15,28 @@
       </button>
     </mat-card-header>
 
-    <form class="subjects-form">
+    <form class="subjects-form" [formGroup]="subjectForm" (ngSubmit)="confirmEdit()">
       <mat-card-content style="margin-left: 12px">
-        <mat-form-field *ngFor="let subject of subjectForm.controls" class="login-full-width">
-          <input matInput placeholder="" value={{subject.value.name}} >
-        </mat-form-field>
+        <div formArrayName="mySubjects"
+             *ngFor="let subject of mySubjects.controls; let i = index">
+          <mat-form-field class="login-full-width" [formGroupName]="i" >
+            <input matInput
+                   formControlName="name"
+                   value={{subject.value.name}}>
+          </mat-form-field>
+        </div>
       </mat-card-content>
 
       <div fxLayoutAlign="end">
         <button
+          type="submit"
           mat-stroked-button
           color="accent"
           class="btn-block"
           matTooltip="Confirm Modules"
           [matTooltipPosition]= "'right'"
           [matTooltipShowDelay]= "500"
-          [matDialogClose]="true"
-          (click)="confirmEdit()">
+          [matDialogClose]="true">
           Done
         </button>
       </div>

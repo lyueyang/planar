@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SubjectEditorService} from './subject-editor.service';
 import subjects from '../subjects.json';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {FormArray, FormBuilder} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-editing-dialog',
@@ -10,29 +10,43 @@ import {FormArray, FormBuilder} from '@angular/forms';
   styleUrls: ['./editingDialog.component.css']
 })
 export class EditingDialogComponent implements OnInit {
-  subjectForm: FormArray;
+  subjectForm: FormGroup;
+  mySubjects: FormArray;
 
   constructor(private submitService: SubjectEditorService,
               private snackBar: MatSnackBar,
               private formBuilder: FormBuilder) {
-    this.subjectForm = this.formBuilder.array(subjects.subjects);
   }
 
   ngOnInit(): void {
+    this.subjectForm = this.formBuilder.group({
+        mySubjects: this.formBuilder.array([])
+    });
+
+    let i: number;
+
+    this.mySubjects = this.subjectForm.get('mySubjects') as FormArray;
+    for (i = 0; i < subjects.subjects.length; i++) {
+      this.mySubjects.push(this.formBuilder.group({
+        name: subjects.subjects[i].name
+      }));
+    }
+
     this.addSubject();
     const reply = this.submitService.fetchData();
     console.warn('Retrieving subjects: ' + reply);
-    // console.warn(this.subjectForm);
+    console.warn(this.subjectForm);
   }
 
-  createSubject() {
+  createSubject(): FormGroup {
     return this.formBuilder.group({
       name: ''
     });
   }
 
-  addSubject() {
-    this.subjectForm.push(this.createSubject());
+  addSubject(): void {
+    this.mySubjects = this.subjectForm.get('mySubjects') as FormArray;
+    this.mySubjects.push(this.createSubject());
   }
 
   confirmEdit() {
@@ -40,18 +54,20 @@ export class EditingDialogComponent implements OnInit {
       duration: 3000
     });
 
-    console.warn(this.subjectForm);
-
     // remove empty rows
     let index: number;
-    let tracker: string[] = [];
-    for (index = 0; index < this.subjectForm.controls.length; index++) {
-      if (this.subjectForm.at(index).value.name.length > 0) {
-        tracker.push(this.subjectForm.at(index).value);
+    const workingArray = this.subjectForm.getRawValue().mySubjects;
+    this.mySubjects = this.subjectForm.get('mySubjects') as FormArray;
+
+    for (index = 0; index < workingArray.length; index++) {
+      if (workingArray[index].name.length < 1) {
+        this.mySubjects.removeAt(index);
       }
     }
 
-    const reply = this.submitService.submitEdit(tracker);
+    console.warn(this.mySubjects);
+
+    const reply = this.submitService.submitEdit(this.mySubjects.value);
     console.warn(reply);
   }
 }
