@@ -26,8 +26,6 @@ export class AssignmentsComponent implements OnInit {
     });
 
     this.addAssignment();
-
-    console.warn(this.assignmentForm);
   }
 
   createAssignment() {
@@ -58,7 +56,11 @@ export class AssignmentsComponent implements OnInit {
       }
     }
 
-    const reply = this.assignmentHelper.submitEdit(this.assignmentForm.value.assignmentDescription);
+    const reply = this.assignmentHelper.submitEdit(this.myAssignments.value);
     console.warn(reply);
+
+    if (this.myAssignments.length < 1) {
+      this.addAssignment();
+    }
   }
 }

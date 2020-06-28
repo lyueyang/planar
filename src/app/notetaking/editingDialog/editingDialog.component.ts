@@ -35,7 +35,6 @@ export class EditingDialogComponent implements OnInit {
     this.addSubject();
     const reply = this.submitService.fetchData();
     console.warn('Retrieving subjects: ' + reply);
-    console.warn(this.subjectForm);
   }
 
   createSubject(): FormGroup {
@@ -64,8 +63,6 @@ export class EditingDialogComponent implements OnInit {
         this.mySubjects.removeAt(index);
       }
     }
-
-    console.warn(this.mySubjects);
 
     const reply = this.submitService.submitEdit(this.mySubjects.value);
     console.warn(reply);
