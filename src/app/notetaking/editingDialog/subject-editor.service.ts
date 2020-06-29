@@ -13,25 +13,32 @@ const httpOptions = {
 export class SubjectEditorService {
 
   public static response: object;
-  retrieveUrl = '/planar/api/v1.0/get_assignments';
-  submitUrl = '/planar/api/v1.0/update_assignments';
+  moduleUrl = '/planar/api/v1.0/modules';
 
   constructor(private http: HttpClient) { }
 
   fetchData(): object {
-    this.http.get(this.retrieveUrl, httpOptions).subscribe(
+    this.http.get(this.moduleUrl, httpOptions).subscribe(
       (data) => {SubjectEditorService.response = data; },
       (error) => {console.error(error); }
     );
     return SubjectEditorService.response;
   }
 
+  async fetchDataSync(): Promise<object> {
+    return await this.http.get(this.moduleUrl, httpOptions).toPromise();
+  }
+
   submitEdit(info): object {
-    this.http.post(this.submitUrl, JSON.stringify(info), httpOptions).subscribe(
+    this.http.post(this.moduleUrl, JSON.stringify(info), httpOptions).subscribe(
       (data) => {SubjectEditorService.response = data; },
       (error) => {console.error(error); }
     );
 
     return SubjectEditorService.response;
+  }
+
+  async submitEditSync(info): Promise<object> {
+    return await this.http.post(this.moduleUrl, JSON.stringify(info), httpOptions).toPromise();
   }
 }

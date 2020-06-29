@@ -19,6 +19,7 @@ export class EditingDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.subjectForm = this.formBuilder.group({
         mySubjects: this.formBuilder.array([])
     });
@@ -33,8 +34,10 @@ export class EditingDialogComponent implements OnInit {
     }
 
     this.addSubject();
-    const reply = this.submitService.fetchData();
-    console.warn('Retrieving subjects: ' + reply);
+    const reply = this.submitService.fetchDataSync().then(data => {
+      console.warn('Modules:');
+      console.warn(data);
+    });
   }
 
   createSubject(): FormGroup {
@@ -64,7 +67,11 @@ export class EditingDialogComponent implements OnInit {
       }
     }
 
-    const reply = this.submitService.submitEdit(this.mySubjects.value);
-    console.warn(reply);
+    const reply = this.submitService.submitEditSync(this.mySubjects.value).then(response => {
+      console.warn(response);
+    });
+    //
+    // const reply = this.submitService.submitEdit(this.mySubjects.value);
+    // console.warn(reply);
   }
 }

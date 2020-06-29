@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {AuthConfig, OAuthService} from 'angular-oauth2-oidc';
 import {LoginService} from './components/login/login.service';
@@ -42,7 +42,7 @@ export const authCodeFlowConfig: AuthConfig = {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(private oauthService: OAuthService, private loginService: LoginService) {
     this.oauthService.configure(authCodeFlowConfig);
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
@@ -68,5 +68,10 @@ export class AppComponent {
 
   public logout() {
     this.oauthService.logOut();
+    this.loginService.logout();
+  }
+
+  ngOnInit(): void {
+    this.loginService.postid(this.oauthService.getIdToken()).then(data => console.log(data));
   }
 }

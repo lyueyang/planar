@@ -7,9 +7,9 @@ import {LoginService} from './login.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  constructor(private oauthService: OAuthService, private loginService: LoginService) { }
+  constructor(private oauthService: OAuthService) { }
 
   public isLoggedIn() {
     return this.oauthService.hasValidAccessToken();
@@ -21,8 +21,5 @@ export class LoginComponent implements OnInit {
 
   public logout() {
     this.oauthService.logOut();
-  }
-
-  ngOnInit(): void {
   }
 }

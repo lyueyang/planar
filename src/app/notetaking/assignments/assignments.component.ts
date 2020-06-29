@@ -19,8 +19,11 @@ export class AssignmentsComponent implements OnInit {
 
   ngOnInit(): void {
     // get assignment form from backend here
-    const reply = this.assignmentHelper.fetchData();
-    console.warn('Retrieving assignments: ' + reply);
+    const reply = this.assignmentHelper.fetchDataSync().then(data => {
+      console.warn('Assignments:');
+      console.warn(data);
+    });
+    // console.warn('Retrieving assignments: ' + reply);
     this.assignmentForm = this.formBuilder.group({
       myAssignments: this.formBuilder.array([])
     });
@@ -56,8 +59,11 @@ export class AssignmentsComponent implements OnInit {
       }
     }
 
-    const reply = this.assignmentHelper.submitEdit(this.myAssignments.value);
-    console.warn(reply);
+    // const reply = this.assignmentHelper.submitEdit(this.myAssignments.value);
+    // console.warn(reply);
+    const reply = this.assignmentHelper.submitEditSync(this.myAssignments.value).then(response => {
+      console.warn(response);
+    });
 
     if (this.myAssignments.length < 1) {
       this.addAssignment();

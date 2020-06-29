@@ -15,14 +15,20 @@ const httpOptions = {
 export class LoginService {
   public static response: object;
   verifyUrl = '/planar/api/v1.0/verify';
+  logoutUrl = '/planar/api/v1.0/logout';
 
   constructor(private http: HttpClient) { }
 
-  verify(id: string): object {
-    const json = {idtoken: id};
-    this.http.post(this.verifyUrl, JSON.stringify(json), httpOptions).subscribe(
-      (data) => { LoginService.response = data; }, (error) => { console.error(error); }
-      );
-    return LoginService.response;
+  async verify(id: string) {
+    LoginService.response = await this.http.post(this.verifyUrl, JSON.stringify({idtoken: id}), httpOptions).toPromise();
+    console.log(LoginService.response);
+  }
+
+  async postid(id: string): Promise<object> {
+    return await this.http.post(this.verifyUrl, JSON.stringify({idtoken: id}), httpOptions).toPromise();
+  }
+
+  logout() {
+    this.http.get(this.logoutUrl, httpOptions);
   }
 }

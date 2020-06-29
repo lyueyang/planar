@@ -13,25 +13,32 @@ const httpOptions = {
 export class AssignmentHelperService {
 
   public static response: object;
-  retrieveUrl = '/planar/api/v1.0/get_assignments';
-  submitUrl = '/planar/api/v1.0/update_assignments';
+  assignmentUrl = '/planar/api/v1.0/assignments';
 
   constructor(private http: HttpClient) { }
 
   fetchData(): object {
-    this.http.get(this.retrieveUrl, httpOptions).subscribe(
+    this.http.get(this.assignmentUrl, httpOptions).subscribe(
       (data) => {AssignmentHelperService.response = data; },
       (error) => {console.error(error); }
     );
     return AssignmentHelperService.response;
   }
 
+  async fetchDataSync(): Promise<object> {
+    return await this.http.get(this.assignmentUrl, httpOptions).toPromise();
+  }
+
   submitEdit(info): object {
-    this.http.post(this.submitUrl, JSON.stringify(info), httpOptions).subscribe(
+    this.http.post(this.assignmentUrl, JSON.stringify(info), httpOptions).subscribe(
       (data) => {AssignmentHelperService.response = data; },
       (error) => {console.error(error); }
     );
 
     return AssignmentHelperService.response;
+  }
+
+  async submitEditSync(info): Promise<object> {
+    return await this.http.post(this.assignmentUrl, JSON.stringify(info), httpOptions).toPromise();
   }
 }
