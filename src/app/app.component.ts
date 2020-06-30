@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
 
 import {AuthConfig, OAuthService} from 'angular-oauth2-oidc';
 import {LoginService} from './components/login/login.service';
@@ -31,7 +31,7 @@ export const authCodeFlowConfig: AuthConfig = {
 
   strictDiscoveryDocumentValidation: false,
 
-  showDebugInformation: true,
+  showDebugInformation: false,
 
   // Not recommented:
   // disablePKCI: true,
@@ -42,19 +42,11 @@ export const authCodeFlowConfig: AuthConfig = {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
+  verified = false;
   constructor(private oauthService: OAuthService, private loginService: LoginService) {
     this.oauthService.configure(authCodeFlowConfig);
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
-  }
-  title = 'planar';
-
-  public isLoggedIn() {
-    return this.oauthService.hasValidAccessToken();
-  }
-
-  public verify() {
-    console.log(this.loginService.verify(this.oauthService.getIdToken()));
   }
 
   public get name() {
@@ -62,16 +54,22 @@ export class AppComponent implements OnInit {
     if (!claims) {
       return null;
     }
+    if (!this.verified) {
+      this.loginService.postid(this.oauthService.getIdToken()).then((data) => {console.log(data); });
+      this.verified = true;
+    }
     // @ts-ignore
     return claims.name;
   }
+  title = 'planar';
 
-  public logout() {
-    this.oauthService.logOut();
-    this.loginService.logout();
+  public isLoggedIn() {
+    return this.oauthService.hasValidAccessToken();
   }
 
-  ngOnInit(): void {
-    this.loginService.postid(this.oauthService.getIdToken()).then(data => console.log(data));
+  public logout() {
+    this.verified = false;
+    this.oauthService.logOut();
+    this.loginService.logout();
   }
 }
