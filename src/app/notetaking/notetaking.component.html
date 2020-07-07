@@ -45,7 +45,9 @@
       </i>
     </button>
     <div fxFill>
-      <app-assignments fxFill></app-assignments>
+      <app-assignments
+        fxFill
+        [currentSubject]="selected"></app-assignments>
       <app-word-editor fxFill></app-word-editor>
     </div>
   </mat-sidenav-content>

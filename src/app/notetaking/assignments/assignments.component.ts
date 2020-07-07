@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormBuilder, FormArray, FormGroup, Form} from '@angular/forms';
 import {AssignmentHelperService} from './assignment-helper.service';
@@ -11,6 +11,8 @@ import {AssignmentHelperService} from './assignment-helper.service';
 export class AssignmentsComponent implements OnInit {
   assignmentForm: FormGroup;
   myAssignments: FormArray;
+
+  @Input() currentSubject: string;
 
   constructor(private snackBar: MatSnackBar,
               private formBuilder: FormBuilder,
@@ -44,6 +46,8 @@ export class AssignmentsComponent implements OnInit {
   }
 
   saveAssignments(){
+    console.warn(this.currentSubject);
+
     this.snackBar.open('Assignments Saved!', 'Dismiss', {
       duration: 3000
     });
