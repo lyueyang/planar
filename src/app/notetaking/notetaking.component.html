@@ -1,36 +1,44 @@
-<mat-sidenav-container class="main-sidenav-container" fxLayout="vertical" fxFlexFill>
+<mat-sidenav-container fxFlexFill>
+
   <mat-sidenav #sidenav class="sidebar" mode="side" opened="true">
-    <h2 class="mat-h2" id="header">My Modules</h2>
+    <div #sidebar>
+      <h2 class="mat-h2" id="header">My Modules</h2>
 
-    <mat-divider></mat-divider>
+      <mat-divider></mat-divider>
 
-    <mat-list id="subjects">
-      <mat-list-item *ngFor="let subject of subjects.subjects">
-        <mat-menu #appMenu="matMenu">
-          <button mat-menu-item>Notes</button>
-          <button mat-menu-item>Assignments</button>
-        </mat-menu>
+      <mat-list id="subjects">
+        <mat-list-item *ngFor="let subject of subjects.subjects">
+          <mat-menu #appMenu="matMenu">
+            <button
+              mat-menu-item
+              (click)="scroll(wordEditor, sidebar)">Notes</button>
+            <button
+              mat-menu-item
+              (click)="scroll(assignments, sidebar)">Assignments</button>
+          </mat-menu>
 
-        <button mat-flat-button fxFlexFill
-                (click)="selectSubject(subject.name)"
-                (mouseover) = "openMenu(subject.name)"
-                [style.background-color] = "isSelectedSubject(subject.name) ? '#DCDCDC' : 'transparent'"
-                [mat-menu-trigger-for]= "appMenu"
-                >
-          {{subject.name}}
-        </button>
-      </mat-list-item>
-    </mat-list>
+          <button mat-flat-button fxFlexFill
+                  (click)="selectSubject(subject.name)"
+                  (mouseover) = "openMenu(subject.name)"
+                  [style.background-color] = "isSelectedSubject(subject.name) ? '#DCDCDC' : 'transparent'"
+                  [mat-menu-trigger-for]= "appMenu"
+                  >
+            {{subject.name}}
+          </button>
+        </mat-list-item>
+      </mat-list>
 
-    <mat-divider></mat-divider>
-    <button mat-button (click)="beginEdit()" id="edit" *ngIf="!editing">Edit</button>
-    <button mat-button
-            (click)="sidenav.toggle()"
-            matTooltip="Hide Sidebar"
-            [matTooltipPosition]= "'right'"
-            [matTooltipShowDelay]= "500"
-            id="close">Hide</button>
+      <mat-divider></mat-divider>
+      <button mat-button (click)="beginEdit()" id="edit" *ngIf="!editing">Edit</button>
+      <button mat-button
+              (click)="sidenav.toggle()"
+              matTooltip="Hide Sidebar"
+              [matTooltipPosition]= "'right'"
+              [matTooltipShowDelay]= "500"
+              id="close">Hide</button>
+    </div>
   </mat-sidenav>
+
 
   <mat-sidenav-content fxFlexFill fxLayout="row" fxLayoutAlign="start none" style="background-color: white;">
     <button mat-icon-button
@@ -45,10 +53,14 @@
       </i>
     </button>
     <div fxFill>
-      <app-assignments
-        fxFill
-        [currentSubject]="selected"></app-assignments>
-      <app-word-editor fxFill></app-word-editor>
+      <div #assignments style="scroll-margin: 8px 8px 8px 8px">
+        <app-assignments
+          fxFill
+          [currentSubject]="selected"></app-assignments>
+      </div>
+      <div #wordEditor style="scroll-margin: 8px 8px 8px 8px">
+        <app-word-editor fxFill></app-word-editor>
+      </div>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

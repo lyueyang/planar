@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatMenuTrigger} from '@angular/material/menu';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {EditingDialogComponent} from './editingDialog/editingDialog.component';
@@ -37,5 +37,10 @@ export class NotetakingComponent {
     if (this.isSelectedSubject(name)) {
       this.trigger.openMenu();
     }
+  }
+
+  scroll(el: HTMLElement, sidebar: HTMLElement) {
+    el.scrollIntoView({block: 'start', behavior: 'smooth'});
+    sidebar.scrollIntoView({block: 'start', inline: 'start', behavior: 'smooth'});
   }
 }
