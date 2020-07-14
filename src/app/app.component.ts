@@ -9,7 +9,7 @@ export const authCodeFlowConfig: AuthConfig = {
   issuer: 'https://accounts.google.com',
 
   // URL of the SPA to redirect the user to after login
-  redirectUri: window.location.origin + '/notetaking',
+  redirectUri: window.location.origin + '/loading',
 
   // The SPA's id. The SPA is registerd with this id at the auth-server
   // clientId: 'server.code',

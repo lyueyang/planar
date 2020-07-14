@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { AngularMaterialModule } from './angular-material.module';
@@ -16,6 +15,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { LoginComponent } from './components/login/login.component';
 
 import { NotetakingModule} from './notetaking/notetaking.module';
+import {LoadingPageModule} from './loading-page/loading-page.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { NotetakingModule} from './notetaking/notetaking.module';
     OAuthModule.forRoot(),
     ReactiveFormsModule,
     NotetakingModule,
-    MatSnackBarModule
+    LoadingPageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
