@@ -1,5 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {OAuthService} from 'angular-oauth2-oidc';
+import {timeout} from 'rxjs/operators';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  })
+};
 
 @Component({
   selector: 'app-spinner',
@@ -7,13 +16,29 @@ import {Router} from '@angular/router';
   styleUrls: ['./spinner.component.css']
 })
 export class SpinnerComponent implements OnInit {
+  public static response: object;
+  verifyUrl = '/planar/api/v1.0/verify';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient, private oauthService: OAuthService) { }
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.router.navigateByUrl('notetaking');
-    }, 1000);
+      this.http.post(
+        this.verifyUrl,
+        JSON.stringify({idtoken: this.oauthService.getIdToken()}),
+        httpOptions)
+        .toPromise().then((data: JSON) => {
+          if (JSON.parse(JSON.stringify(data)).reponse === 'Successfully verified ID') {
+            this.router.navigateByUrl('notetaking');
+          } else {
+            this.router.navigateByUrl('loginlanding');
+          }
+        },
+        (error) => {
+          console.error(error);
+          this.router.navigateByUrl('loginlanding');
+        });
+    },
+    500);
   }
-
 }
