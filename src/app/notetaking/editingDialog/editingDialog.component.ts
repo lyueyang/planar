@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SubjectEditorService} from './subject-editor.service';
 import subjects from '../subjects.json';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-editing-dialog',
@@ -70,8 +70,5 @@ export class EditingDialogComponent implements OnInit {
     const reply = this.submitService.submitEditSync(this.mySubjects.value).then(response => {
       console.warn(response);
     });
-    //
-    // const reply = this.submitService.submitEdit(this.mySubjects.value);
-    // console.warn(reply);
   }
 }

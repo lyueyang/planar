@@ -7,6 +7,7 @@ import { AngularMaterialModule } from '../angular-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditingDialogComponent } from './editingDialog/editingDialog.component';
+import { TelegramDialogComponent } from './telegram-dialog/telegram-dialog.component';
 
 
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -18,7 +19,7 @@ import {FormsModule} from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
-  declarations: [NotetakingComponent, EditingDialogComponent, AssignmentsComponent, WordEditorComponent],
+  declarations: [NotetakingComponent, EditingDialogComponent, AssignmentsComponent, WordEditorComponent, TelegramDialogComponent],
     imports: [
         CommonModule,
         BrowserModule,

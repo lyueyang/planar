@@ -3,6 +3,7 @@ import {MatMenuTrigger} from '@angular/material/menu';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {EditingDialogComponent} from './editingDialog/editingDialog.component';
 import subjects from './subjects.json';
+import {TelegramDialogComponent} from "./telegram-dialog/telegram-dialog.component";
 
 @Component({
   selector: 'app-notetaking',
@@ -42,5 +43,12 @@ export class NotetakingComponent {
   scroll(el: HTMLElement, sidebar: HTMLElement) {
     el.scrollIntoView({block: 'start', behavior: 'smooth'});
     sidebar.scrollIntoView({block: 'start', inline: 'start', behavior: 'smooth'});
+  }
+
+  linkToTelegram() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+
+    this.dialog.open(TelegramDialogComponent, dialogConfig);
   }
 }
