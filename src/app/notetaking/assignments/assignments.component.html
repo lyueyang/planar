@@ -26,7 +26,13 @@
       <div formArrayName="myAssignments"
            *ngFor='let assignment of myAssignments.controls; let i = index'>
         <mat-form-field [formGroupName]="i" fxFlexFill>
-              <input matInput formControlName="assignmentDescription">
+            <input matInput formControlName="assignmentDescription">
+        </mat-form-field>
+        <mat-form-field [formGroupName]="i">
+            <mat-label>Deadline: </mat-label>
+            <input matInput [matDatepicker]="dp3" disabled formControlName="deadline">
+            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
         </mat-form-field>
       </div>
     </mat-card-content>

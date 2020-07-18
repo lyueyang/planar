@@ -36,7 +36,8 @@ export class AssignmentsComponent implements OnInit {
   createAssignment() {
     // group is used to allow for future detail such as deadlines
     return this.formBuilder.group({
-      assignmentDescription: ''
+      assignmentDescription: '',
+      deadline: ''
     });
   }
 
@@ -46,6 +47,7 @@ export class AssignmentsComponent implements OnInit {
   }
 
   saveAssignments(){
+    console.clear();
     console.warn(this.currentSubject);
 
     this.snackBar.open('Assignments Saved!', 'Dismiss', {

@@ -17,22 +17,26 @@ import { WordEditorComponent } from './word-editor/word-editor.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FormsModule} from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [NotetakingComponent, EditingDialogComponent, AssignmentsComponent, WordEditorComponent, TelegramDialogComponent],
-    imports: [
-        CommonModule,
-        BrowserModule,
-        RouterModule,
-        AngularMaterialModule,
-        FlexLayoutModule,
-        MatDialogModule,
-        MatMenuModule,
-        MatTooltipModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MatSnackBarModule
-    ]
+  imports: [
+    CommonModule,
+    BrowserModule,
+    RouterModule,
+    AngularMaterialModule,
+    FlexLayoutModule,
+    MatDialogModule,
+    MatMenuModule,
+    MatTooltipModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ]
 })
 export class NotetakingModule {
 }
