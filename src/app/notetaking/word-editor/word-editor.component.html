@@ -1,25 +1,36 @@
 <mat-card>
-  <mat-card-header fxLayout="row" fxLayoutAlign="start center">
-    <mat-card-title style="margin: 0 0;">
-      Notes
-    </mat-card-title>
+  <form [formGroup]="notesForm" (ngSubmit)="saveNotes()">
+    <mat-card-header fxLayout="row" fxLayoutAlign="start center">
+      <mat-card-title style="margin: 0 0;">
+        Notes
+      </mat-card-title>
 
-    <button mat-icon-button
-            matTooltip="Save notes"
-            [matTooltipPosition]= "'below'"
-            [matTooltipShowDelay]= "500"
-            (click)="saveNotes()">
-      <i class="material-icons">save</i>
-    </button>
-  </mat-card-header>
+      <button mat-icon-button
+                matTooltip="Add chapter"
+                [matTooltipPosition]= "'right'"
+                [matTooltipShowDelay]= "500"
+                (click)="addChapter()"
+                type="button">
+          <i class="material-icons">add</i>
+        </button>
 
-  <mat-card-content>
-    <mat-form-field fxFill
-                    floatLabel="never">
-      <textarea matInput
-                cdkTextareaAutosize
-                placeholder="Start writing your notes here.."
-                fxFill></textarea>
-    </mat-form-field>
-  </mat-card-content>
+      <button mat-icon-button
+              matTooltip="Save notes"
+              [matTooltipPosition]= "'below'"
+              [matTooltipShowDelay]= "500"
+              (click)="saveNotes()">
+        <i class="material-icons">save</i>
+      </button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div formArrayName="myNotes"
+           *ngFor='let chapter of myNotes.controls; let i = index'>
+        <mat-form-field [formGroupName]="i" fxFlexFill>
+          <mat-label>Chapter {{i + 1}}</mat-label>
+          <input matInput formControlName="notes">
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </form>
 </mat-card>

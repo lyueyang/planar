@@ -34,7 +34,6 @@ export class AssignmentsComponent implements OnInit {
   }
 
   createAssignment() {
-    // group is used to allow for future detail such as deadlines
     return this.formBuilder.group({
       assignmentDescription: '',
       deadline: ''
