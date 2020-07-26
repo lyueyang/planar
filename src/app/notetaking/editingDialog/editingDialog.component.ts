@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { SubjectEditorService} from './subject-editor.service';
 import subjects from '../subjects.json';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -10,8 +10,11 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
   styleUrls: ['./editingDialog.component.css']
 })
 export class EditingDialogComponent implements OnInit {
+
   subjectForm: FormGroup;
   mySubjects: FormArray;
+  private subjectList: string[];
+  private jsonResponse: any;
 
   constructor(private submitService: SubjectEditorService,
               private snackBar: MatSnackBar,
@@ -24,19 +27,22 @@ export class EditingDialogComponent implements OnInit {
         mySubjects: this.formBuilder.array([])
     });
 
-    let i: number;
-
     this.mySubjects = this.subjectForm.get('mySubjects') as FormArray;
-    for (i = 0; i < subjects.subjects.length; i++) {
-      this.mySubjects.push(this.formBuilder.group({
-        name: subjects.subjects[i].name
-      }));
-    }
 
-    this.addSubject();
-    const reply = this.submitService.fetchDataSync().then(data => {
-      console.warn('Modules:');
-      console.warn(data);
+    this.subjectList = [];
+    const reply = this.submitService.fetchDataSync().then(
+      data => {
+        this.jsonResponse = JSON.parse(JSON.stringify(data));
+        if (this.jsonResponse.length > 0) {
+          this.jsonResponse.forEach(
+            value => {
+              this.subjectList.push(value.name.toString());
+              this.mySubjects.push(this.formBuilder.group({
+                name: value.name.toString()
+              }));
+            }
+          );
+        } else { this.addSubject(); }
     });
   }
 
@@ -64,11 +70,14 @@ export class EditingDialogComponent implements OnInit {
     for (index = 0; index < workingArray.length; index++) {
       if (workingArray[index].name.length < 1) {
         this.mySubjects.removeAt(index);
+      } else {
+        this.mySubjects.at(index).setValue({name: this.mySubjects.at(index).value.name.toUpperCase()});
       }
     }
 
+    console.warn(this.mySubjects);
     const reply = this.submitService.submitEditSync(this.mySubjects.value).then(response => {
-      console.warn(response);
+      window.location.reload();
     });
   }
 }

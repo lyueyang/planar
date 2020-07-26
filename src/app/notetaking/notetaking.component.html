@@ -7,7 +7,8 @@
       <mat-divider></mat-divider>
 
       <mat-list id="subjects">
-        <mat-list-item *ngFor="let subject of subjects.subjects">
+        <p *ngIf="isSubjectListEmpty()">Begin using planar by adding your modules with the edit button</p>
+        <mat-list-item *ngFor="let subject of subjectList">
           <mat-menu #appMenu="matMenu">
             <button
               mat-menu-item
@@ -18,12 +19,11 @@
           </mat-menu>
 
           <button mat-flat-button fxFlexFill
-                  (click)="selectSubject(subject.name)"
-                  (mouseover) = "openMenu(subject.name)"
-                  [style.background-color] = "isSelectedSubject(subject.name) ? '#DCDCDC' : 'transparent'"
+                  (click)="selectSubject(subject)"
+                  [style.background-color] = "isSelectedSubject(subject) ? '#DCDCDC' : 'transparent'"
                   [mat-menu-trigger-for]= "appMenu"
                   >
-            {{subject.name}}
+            {{subject}}
           </button>
         </mat-list-item>
       </mat-list>
