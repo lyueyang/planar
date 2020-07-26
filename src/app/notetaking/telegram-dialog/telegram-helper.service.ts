@@ -16,7 +16,7 @@ export class TelegramHelperService {
 
   constructor(private http: HttpClient) { }
 
-  async getToken(): Promise<object> {
-    return await this.http.get(this.telegramUrl, httpOptions).toPromise();
+  async getToken(): Promise<string> {
+    return await this.http.get(this.telegramUrl, {responseType: 'text'}).toPromise();
   }
 }
