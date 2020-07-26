@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {FormBuilder, FormArray, FormGroup, Form, FormControl} from '@angular/forms';
+import {FormBuilder, FormArray, FormGroup, Form, FormControl, AbstractControl} from '@angular/forms';
 import {AssignmentHelperService} from './assignment-helper.service';
 
 @Component({
@@ -8,9 +8,11 @@ import {AssignmentHelperService} from './assignment-helper.service';
   templateUrl: './assignments.component.html',
   styleUrls: ['./assignments.component.css']
 })
+
 export class AssignmentsComponent implements OnInit {
   assignmentForm: FormGroup;
   myAssignments: FormArray;
+  submitArray: FormArray;
   private jsonResponse: any;
 
   @Input() currentSubject: string;
@@ -31,14 +33,13 @@ export class AssignmentsComponent implements OnInit {
     this.assignmentForm = this.formBuilder.group({
       myAssignments: this.formBuilder.array([])
     });
-
-    // this.addAssignment();
   }
 
   createAssignment() {
     return this.formBuilder.group({
+      id: Math.random().toString(),
       assignmentDescription: '',
-      deadline: new FormControl({value: '', disabled: true})
+      deadline: ''
     });
   }
 
@@ -63,8 +64,9 @@ export class AssignmentsComponent implements OnInit {
           value => {
             this.myAssignments.push(
               this.formBuilder.group({
-                assignmentDescription: '',
-                deadline: new FormControl({value: '', disabled: true})
+                id: value.id.toString(),
+                assignmentDescription: value.assignmentDescription,
+                deadline: new Date(value.deadline * 1000)
               })
             );
           }
@@ -76,11 +78,11 @@ export class AssignmentsComponent implements OnInit {
         this.addAssignment();
       }
     });
+    console.warn(this.myAssignments);
   }
 
   saveAssignments(){
-    console.clear();
-    console.warn(this.currentSubject);
+    this.submitArray = this.formBuilder.array([]);
 
     this.snackBar.open('Assignments Saved!', 'Dismiss', {
       duration: 3000
@@ -94,12 +96,26 @@ export class AssignmentsComponent implements OnInit {
     for (index = 0; index < workingArray.length; index++) {
       if (workingArray[index].assignmentDescription.length < 1) {
         this.myAssignments.removeAt(index);
+        this.submitArray.removeAt(index);
+      }
+      else {
+        const referenceValue = this.myAssignments.at(index).value;
+        this.submitArray.push(this.formBuilder.group({
+          id: referenceValue.id.toString(),
+          assignmentDescription: referenceValue.assignmentDescription,
+          deadline: this.myAssignments.at(index).value.deadline / 1000
+        }));
+        // this.submitArray.at(index).patchValue({
+        //   deadline: this.myAssignments.at(index).value.deadline / 1000
+        // });
       }
     }
 
-    console.warn(this.myAssignments.value);
-    const reply = this.assignmentHelper.submitEditSync(this.currentSubject, this.myAssignments.value).then(response => {
-      console.warn(response);
+    console.warn(this.myAssignments);
+    console.warn(this.submitArray);
+
+    const reply = this.assignmentHelper.submitEditSync(this.currentSubject, this.submitArray.value).then(response => {
+      // console.warn(response);
     });
   }
 

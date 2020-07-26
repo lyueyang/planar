@@ -37,6 +37,7 @@ export class WordEditorComponent implements OnInit {
 
   createChapter() {
     return this.formBuilder.group({
+      id: Math.random().toString(),
       notes: ''
     });
   }
@@ -82,7 +83,8 @@ export class WordEditorComponent implements OnInit {
           value => {
             this.myNotes.push(
               this.formBuilder.group({
-                notes: ''
+                id: value.id.toString(),
+                notes: value.notes.toString()
               })
             );
           }
