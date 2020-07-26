@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {MatMenuTrigger} from '@angular/material/menu';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {EditingDialogComponent} from './editingDialog/editingDialog.component';
@@ -13,6 +13,7 @@ import {NotetakingHelperService} from './notetaking-helper.service';
 export class NotetakingComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   public subjectList: string[] = [];
+  public subjectChosen: EventEmitter<boolean> = new EventEmitter<boolean>();
   private jsonResponse: any;
 
   editing: boolean;
@@ -35,16 +36,11 @@ export class NotetakingComponent implements OnInit {
 
   selectSubject(name) {
     this.selected = name;
+    this.subjectChosen.emit(true);
   }
 
   isSelectedSubject(name) {
     return this.selected === name;
-  }
-
-  openMenu(name) {
-    if (this.isSelectedSubject(name)) {
-      this.trigger.openMenu();
-    }
   }
 
   scroll(el: HTMLElement, sidebar: HTMLElement) {

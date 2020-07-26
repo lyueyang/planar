@@ -59,12 +59,14 @@
       <div #assignments style="scroll-margin: 8px 8px 8px 8px">
         <app-assignments
           fxFill
-          [currentSubject]="selected"></app-assignments>
+          [currentSubject]="selected"
+          [subjectChosen]="subjectChosen"></app-assignments>
       </div>
       <div #wordEditor style="scroll-margin: 8px 8px 8px 8px">
         <app-word-editor
           fxFill
-          [currentSubject]="selected"></app-word-editor>
+          [currentSubject]="selected"
+          [subjectChosen]="subjectChosen"></app-word-editor>
       </div>
     </div>
   </mat-sidenav-content>

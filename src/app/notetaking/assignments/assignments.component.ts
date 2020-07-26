@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {FormBuilder, FormArray, FormGroup, Form} from '@angular/forms';
+import {FormBuilder, FormArray, FormGroup, Form, FormControl} from '@angular/forms';
 import {AssignmentHelperService} from './assignment-helper.service';
 
 @Component({
@@ -11,8 +11,10 @@ import {AssignmentHelperService} from './assignment-helper.service';
 export class AssignmentsComponent implements OnInit {
   assignmentForm: FormGroup;
   myAssignments: FormArray;
+  private jsonResponse: any;
 
   @Input() currentSubject: string;
+  @Input() subjectChosen: EventEmitter<boolean>;
 
   constructor(private snackBar: MatSnackBar,
               private formBuilder: FormBuilder,
@@ -20,29 +22,60 @@ export class AssignmentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // get assignment form from backend here
-    const reply = this.assignmentHelper.fetchDataSync().then(data => {
-      console.warn('Assignments:');
-      console.warn(data);
-    });
-    // console.warn('Retrieving assignments: ' + reply);
+    if (this.subjectChosen) {
+      this.subjectChosen.subscribe(data => {
+        this.loadAssignment();
+      });
+    }
+
     this.assignmentForm = this.formBuilder.group({
       myAssignments: this.formBuilder.array([])
     });
 
-    this.addAssignment();
+    // this.addAssignment();
   }
 
   createAssignment() {
     return this.formBuilder.group({
       assignmentDescription: '',
-      deadline: ''
+      deadline: new FormControl({value: '', disabled: true})
     });
   }
 
   addAssignment() {
     this.myAssignments = this.assignmentForm.get('myAssignments') as FormArray;
     this.myAssignments.push(this.createAssignment());
+  }
+
+  loadAssignment() {
+    this.myAssignments = this.assignmentForm.get('myAssignments') as FormArray;
+
+    this.myAssignments.clear();
+
+    const reply = this.assignmentHelper.fetchDataSync(this.currentSubject).then(data => {
+      this.jsonResponse = JSON.parse(JSON.stringify(data));
+      if (this.jsonResponse.length > 0) {
+        console.warn('Assignments:');
+        console.warn(data);
+
+        // actual form stuff
+        this.jsonResponse.forEach(
+          value => {
+            this.myAssignments.push(
+              this.formBuilder.group({
+                assignmentDescription: '',
+                deadline: new FormControl({value: '', disabled: true})
+              })
+            );
+          }
+        );
+      } else {
+        console.warn('No assignments found');
+
+        // actual form stuff
+        this.addAssignment();
+      }
+    });
   }
 
   saveAssignments(){
@@ -64,15 +97,10 @@ export class AssignmentsComponent implements OnInit {
       }
     }
 
-    // const reply = this.assignmentHelper.submitEdit(this.myAssignments.value);
-    // console.warn(reply);
-    const reply = this.assignmentHelper.submitEditSync(this.myAssignments.value).then(response => {
+    console.warn(this.myAssignments.value);
+    const reply = this.assignmentHelper.submitEditSync(this.currentSubject, this.myAssignments.value).then(response => {
       console.warn(response);
     });
-
-    if (this.myAssignments.length < 1) {
-      this.addAssignment();
-    }
   }
 
   isSubjectSelected(){
