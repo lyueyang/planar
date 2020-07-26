@@ -1,6 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { SubjectEditorService} from './subject-editor.service';
-import subjects from '../subjects.json';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
