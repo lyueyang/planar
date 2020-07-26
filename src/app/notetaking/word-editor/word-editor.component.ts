@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
@@ -10,6 +10,8 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 export class WordEditorComponent implements OnInit {
   notesForm: FormGroup;
   myNotes: FormArray;
+
+  @Input() currentSubject: string;
 
   constructor(private snackBar: MatSnackBar,
               private formBuilder: FormBuilder) { }
@@ -37,5 +39,9 @@ export class WordEditorComponent implements OnInit {
     this.snackBar.open('Assignments Saved!', 'Dismiss', {
       duration: 3000
     });
+  }
+
+  isSubjectSelected(){
+    return this.currentSubject !== 'NONE';
   }
 }

@@ -13,7 +13,7 @@ const httpOptions = {
 export class AssignmentHelperService {
 
   public static response: object;
-  assignmentUrl = '/planar/api/v1.0/assignments';
+  assignmentUrl = 'https://planar.joels.space/planar/api/v1.0/assignments';
 
   constructor(private http: HttpClient) { }
 

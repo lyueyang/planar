@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="isSubjectSelected()">
   <form [formGroup]="notesForm" (ngSubmit)="saveNotes()">
     <mat-card-header fxLayout="row" fxLayoutAlign="start center">
       <mat-card-title style="margin: 0 0;">

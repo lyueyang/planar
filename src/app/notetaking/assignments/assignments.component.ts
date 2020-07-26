@@ -74,4 +74,8 @@ export class AssignmentsComponent implements OnInit {
       this.addAssignment();
     }
   }
+
+  isSubjectSelected(){
+    return this.currentSubject !== 'NONE';
+  }
 }
