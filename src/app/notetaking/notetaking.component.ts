@@ -4,6 +4,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {EditingDialogComponent} from './editingDialog/editingDialog.component';
 import {TelegramDialogComponent} from './telegram-dialog/telegram-dialog.component';
 import {NotetakingHelperService} from './notetaking-helper.service';
+import {MatCalendarCellCssClasses} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-notetaking',
@@ -19,6 +20,10 @@ export class NotetakingComponent implements OnInit {
   editing: boolean;
   status = 'Enable';
   selected = 'NONE';
+  selectedDate: any;
+  datesToHighlight = [];
+  modDate = [];
+  done = false;
 
   constructor(private dialog: MatDialog,
               private helperService: NotetakingHelperService) { }
@@ -68,9 +73,36 @@ export class NotetakingComponent implements OnInit {
         }
       }
     );
+    this.helperService.fetchDates().then(
+      data => {
+        this.modDate = JSON.parse(JSON.stringify(data));
+        if (this.modDate.length > 0) {
+          this.modDate.forEach(
+            val => {
+              this.datesToHighlight.push(new Date(val.date * 1000));
+            }
+          );
+          this.done = true;
+          console.log(this.datesToHighlight);
+        }
+      }
+      );
   }
 
   isSubjectListEmpty() {
     return this.subjectList.length < 1;
+  }
+
+  onSelect(event){
+    console.log(event);
+    this.selectedDate = event;
+  }
+
+  dateClass() {
+    return (date: Date): MatCalendarCellCssClasses => {
+      const highlightDate = this.datesToHighlight
+        .some(d => d.getDate() === date.getDate() && d.getMonth() === date.getMonth() && d.getFullYear() === date.getFullYear());
+      return highlightDate ? 'date1' : '';
+    };
   }
 }

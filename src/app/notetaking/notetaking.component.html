@@ -39,9 +39,12 @@
 
       <mat-divider></mat-divider>
       <button fxFill mat-button (click)="linkToTelegram()">Link to Telegram</button>
+      <mat-divider></mat-divider>
+      <div *ngIf="done">
+        <mat-calendar fxFlexFill [dateClass]="dateClass()" [selected]="selectedDate" (selectedChange)="onSelect($event)"></mat-calendar>
+      </div>
     </div>
   </mat-sidenav>
-
 
   <mat-sidenav-content fxFlexFill fxLayout="row" fxLayoutAlign="start none" style="background-color: white;">
     <button mat-icon-button

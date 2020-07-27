@@ -12,13 +12,16 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class NotetakingHelperService {
-
-  public static response: object;
   moduleUrl = '/planar/api/v1.0/modules';
+  datesUrl = '/planar/api/v1.0/assignmentDates';
 
   constructor(private http: HttpClient) { }
 
   async fetchDataSync(): Promise<object> {
     return await this.http.get(this.moduleUrl, httpOptions).toPromise();
+  }
+
+  async fetchDates(): Promise<object> {
+    return await this.http.get(this.datesUrl, httpOptions).toPromise();
   }
 }

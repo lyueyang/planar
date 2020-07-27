@@ -21,7 +21,13 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
-  declarations: [NotetakingComponent, EditingDialogComponent, AssignmentsComponent, WordEditorComponent, TelegramDialogComponent],
+  declarations: [
+    NotetakingComponent,
+    EditingDialogComponent,
+    AssignmentsComponent,
+    WordEditorComponent,
+    TelegramDialogComponent
+  ],
   imports: [
     CommonModule,
     BrowserModule,
