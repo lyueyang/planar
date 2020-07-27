@@ -1,3 +1,7 @@
 .mat-card {
   box-shadow: none;
 }
+
+#form {
+  padding-right: 38px;
+}

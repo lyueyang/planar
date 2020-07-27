@@ -50,6 +50,11 @@ export class AssignmentsComponent implements OnInit {
     this.myAssignments.push(this.createAssignment());
   }
 
+  removeAssignment(index: number) {
+    this.assignmentHelper.removeItem(this.myAssignments.at(index).value.id).then();
+    this.myAssignments.removeAt(index);
+  }
+
   loadAssignment() {
     setTimeout(() => {
       this.myAssignments = this.assignmentForm.get('myAssignments') as FormArray;
@@ -65,7 +70,7 @@ export class AssignmentsComponent implements OnInit {
                 this.formBuilder.group({
                   id: value.id.toString(),
                   assignmentDescription: value.assignmentDescription,
-                  deadline: new Date(value.deadline * 1000)
+                  deadline: value.deadline > 0 ? new Date(value.deadline * 1000) : ''
                 })
               );
             }
@@ -106,11 +111,7 @@ export class AssignmentsComponent implements OnInit {
       }
     }
 
-    console.warn(this.myAssignments);
-    console.warn(this.submitArray);
-
-    const reply = this.assignmentHelper.submitEditSync(this.currentSubject, this.submitArray.value).then(response => {
-    });
+    const reply = this.assignmentHelper.submitEditSync(this.currentSubject, this.submitArray.value).then();
   }
 
   isSubjectSelected(){

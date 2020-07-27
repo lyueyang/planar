@@ -1,3 +1,11 @@
 .mat-card {
   box-shadow: none;
 }
+
+#deadline {
+  margin-left: 38px;
+}
+
+#text-field {
+  padding-right: 38px;
+}

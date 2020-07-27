@@ -24,4 +24,8 @@ export class WordEditorHelperService {
   async submitEditSync(subject: string, info): Promise<object> {
     return await this.http.post((this.notesUrl + subject), JSON.stringify(info), httpOptions).toPromise();
   }
+
+  async removeItem(id: number): Promise<object> {
+    return await this.http.delete((this.notesUrl + id), httpOptions).toPromise();
+  }
 }

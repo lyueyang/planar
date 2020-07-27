@@ -59,9 +59,7 @@ export class WordEditorComponent implements OnInit {
       }
     }
 
-    console.warn(this.myNotes.value);
     const reply = this.notesHelper.submitEditSync(this.currentSubject, this.myNotes.value).then(response => {
-      console.warn(response);
       this.snackBar.open('Assignments Saved!', 'Dismiss', {
       duration: 3000
       });
@@ -95,6 +93,11 @@ export class WordEditorComponent implements OnInit {
       });
     },
       250);
+  }
+
+  removeNote(index: number) {
+    this.notesHelper.removeItem(this.myNotes.at(index).value.id).then();
+    this.myNotes.removeAt(index);
   }
 
   isSubjectSelected(){

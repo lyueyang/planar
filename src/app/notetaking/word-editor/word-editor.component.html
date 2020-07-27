@@ -24,8 +24,18 @@
     </mat-card-header>
 
     <mat-card-content>
-      <div formArrayName="myNotes"
-           *ngFor='let chapter of myNotes.controls; let i = index'>
+      <div fxLayout="row"
+           formArrayName="myNotes"
+           *ngFor='let chapter of myNotes.controls; let i = index'
+           id="form">
+        <button mat-icon-button
+                matTooltip="Remove note"
+                [matTooltipPosition]= "'below'"
+                [matTooltipShowDelay]= "500"
+                (click)="removeNote(i)"
+                type="button">
+            <i class="material-icons">delete</i>
+        </button>
         <mat-form-field [formGroupName]="i" fxFlexFill>
           <mat-label>Chapter {{i + 1}}</mat-label>
           <input matInput formControlName="notes">

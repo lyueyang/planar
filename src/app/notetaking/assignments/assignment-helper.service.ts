@@ -24,4 +24,8 @@ export class AssignmentHelperService {
   async submitEditSync(subject: string, info): Promise<object> {
     return await this.http.post((this.assignmentUrl + subject), JSON.stringify(info), httpOptions).toPromise();
   }
+
+  async removeItem(id: number): Promise<object> {
+    return await this.http.delete((this.assignmentUrl + id), httpOptions).toPromise();
+  }
 }
