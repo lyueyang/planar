@@ -68,34 +68,37 @@ export class WordEditorComponent implements OnInit {
   }
 
   loadNotes() {
-    this.myNotes = this.notesForm.get('myNotes') as FormArray;
+    setTimeout(() => {
+      this.myNotes = this.notesForm.get('myNotes') as FormArray;
 
-    this.myNotes.clear();
+      this.myNotes.clear();
 
-    const reply = this.notesHelper.fetchDataSync(this.currentSubject).then(data => {
-      this.jsonResponse = JSON.parse(JSON.stringify(data));
-      if (this.jsonResponse.length > 0) {
-        console.warn('Notes:');
-        console.warn(data);
+      const reply = this.notesHelper.fetchDataSync(this.currentSubject).then(data => {
+        this.jsonResponse = JSON.parse(JSON.stringify(data));
+        if (this.jsonResponse.length > 0) {
+          console.warn('Notes:');
+          console.warn(data);
 
-        // actual form stuff
-        this.jsonResponse.forEach(
-          value => {
-            this.myNotes.push(
-              this.formBuilder.group({
-                id: value.id.toString(),
-                notes: value.notes.toString()
-              })
-            );
-          }
-        );
-      } else {
-        console.warn('No notes found');
+          // actual form stuff
+          this.jsonResponse.forEach(
+            value => {
+              this.myNotes.push(
+                this.formBuilder.group({
+                  id: value.id.toString(),
+                  notes: value.notes.toString()
+                })
+              );
+            }
+          );
+        } else {
+          console.warn('No notes found');
 
-        // actual form stuff
-        this.addChapter();
-      }
-    });
+          // actual form stuff
+          this.addChapter();
+        }
+      });
+    },
+      250);
   }
 
   isSubjectSelected(){

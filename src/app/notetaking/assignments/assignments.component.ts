@@ -49,36 +49,37 @@ export class AssignmentsComponent implements OnInit {
   }
 
   loadAssignment() {
-    this.myAssignments = this.assignmentForm.get('myAssignments') as FormArray;
+    setTimeout(() => {
+      this.myAssignments = this.assignmentForm.get('myAssignments') as FormArray;
 
-    this.myAssignments.clear();
+      this.myAssignments.clear();
 
-    const reply = this.assignmentHelper.fetchDataSync(this.currentSubject).then(data => {
-      this.jsonResponse = JSON.parse(JSON.stringify(data));
-      if (this.jsonResponse.length > 0) {
-        console.warn('Assignments:');
-        console.warn(data);
+      const reply = this.assignmentHelper.fetchDataSync(this.currentSubject).then(data => {
+        this.jsonResponse = JSON.parse(JSON.stringify(data));
+        if (this.jsonResponse.length > 0) {
+          // console.warn('Assignments:');
+          // console.warn(data);
 
-        // actual form stuff
-        this.jsonResponse.forEach(
-          value => {
-            this.myAssignments.push(
-              this.formBuilder.group({
-                id: value.id.toString(),
-                assignmentDescription: value.assignmentDescription,
-                deadline: new Date(value.deadline * 1000)
-              })
-            );
-          }
-        );
-      } else {
-        console.warn('No assignments found');
+          // actual form stuff
+          this.jsonResponse.forEach(
+            value => {
+              this.myAssignments.push(
+                this.formBuilder.group({
+                  id: value.id.toString(),
+                  assignmentDescription: value.assignmentDescription,
+                  deadline: new Date(value.deadline * 1000)
+                })
+              );
+            }
+          );
+        } else {
+          // console.warn('No assignments found');
 
-        // actual form stuff
-        this.addAssignment();
-      }
-    });
-    console.warn(this.myAssignments);
+          // actual form stuff
+          this.addAssignment();
+        }
+      });
+    }, 500);
   }
 
   saveAssignments(){

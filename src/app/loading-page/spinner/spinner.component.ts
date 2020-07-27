@@ -39,6 +39,6 @@ export class SpinnerComponent implements OnInit {
           this.router.navigateByUrl('loginlanding');
         });
     },
-    500);
+    250);
   }
 }
