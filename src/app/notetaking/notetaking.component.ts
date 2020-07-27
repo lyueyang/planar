@@ -77,13 +77,15 @@ export class NotetakingComponent implements OnInit {
       data => {
         this.modDate = JSON.parse(JSON.stringify(data));
         if (this.modDate.length > 0) {
+          const localtz = new Date().getTimezoneOffset() * 60;
+          const oneDay = 86400;
+
           this.modDate.forEach(
             val => {
-              this.datesToHighlight.push(new Date(val.date * 1000));
+              this.datesToHighlight.push(new Date((val.date - localtz + oneDay) * 1000));
             }
           );
           this.done = true;
-          console.log(this.datesToHighlight);
         }
       }
       );

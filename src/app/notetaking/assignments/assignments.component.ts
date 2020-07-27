@@ -56,6 +56,9 @@ export class AssignmentsComponent implements OnInit {
   }
 
   loadAssignment() {
+    const localtz = new Date().getTimezoneOffset() * 60;
+    const oneDay = 86400;
+
     setTimeout(() => {
       this.myAssignments = this.assignmentForm.get('myAssignments') as FormArray;
 
@@ -70,7 +73,7 @@ export class AssignmentsComponent implements OnInit {
                 this.formBuilder.group({
                   id: value.id.toString(),
                   assignmentDescription: value.assignmentDescription,
-                  deadline: value.deadline > 0 ? new Date(value.deadline * 1000) : ''
+                  deadline: value.deadline > 0 ? new Date((value.deadline - localtz + oneDay) * 1000) : ''
                 })
               );
             }
@@ -106,7 +109,9 @@ export class AssignmentsComponent implements OnInit {
         this.submitArray.push(this.formBuilder.group({
           id: referenceValue.id.toString(),
           assignmentDescription: referenceValue.assignmentDescription,
-          deadline: this.myAssignments.at(index).value.deadline / 1000
+          // deadline: this.myAssignments.at(index).value.deadline.getTime() / 1000
+          deadline: this.myAssignments.at(index).value.deadline.toString().length < 1 ?
+                      0 : this.myAssignments.at(index).value.deadline.getTime() / 1000
         }));
       }
     }

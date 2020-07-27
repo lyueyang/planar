@@ -60,7 +60,7 @@ export class WordEditorComponent implements OnInit {
     }
 
     const reply = this.notesHelper.submitEditSync(this.currentSubject, this.myNotes.value).then(response => {
-      this.snackBar.open('Assignments Saved!', 'Dismiss', {
+      this.snackBar.open('Notes Saved!', 'Dismiss', {
       duration: 3000
       });
     });
