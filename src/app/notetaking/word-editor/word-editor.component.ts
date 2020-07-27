@@ -15,6 +15,7 @@ export class WordEditorComponent implements OnInit {
   @Input() currentSubject: string;
   @Input() subjectChosen: EventEmitter<boolean>;
   private jsonResponse: any;
+  private doneLoading: boolean;
 
 
   constructor(private snackBar: MatSnackBar,
@@ -22,6 +23,8 @@ export class WordEditorComponent implements OnInit {
               private notesHelper: WordEditorHelperService) { }
 
   ngOnInit(): void {
+    this.doneLoading = false;
+
     if (this.subjectChosen) {
       this.subjectChosen.subscribe(data => {
         this.loadNotes();
@@ -31,8 +34,6 @@ export class WordEditorComponent implements OnInit {
     this.notesForm = this.formBuilder.group({
       myNotes: this.formBuilder.array([])
     });
-
-    // this.addChapter();
   }
 
   createChapter() {
@@ -76,10 +77,6 @@ export class WordEditorComponent implements OnInit {
       const reply = this.notesHelper.fetchDataSync(this.currentSubject).then(data => {
         this.jsonResponse = JSON.parse(JSON.stringify(data));
         if (this.jsonResponse.length > 0) {
-          console.warn('Notes:');
-          console.warn(data);
-
-          // actual form stuff
           this.jsonResponse.forEach(
             value => {
               this.myNotes.push(
@@ -91,11 +88,10 @@ export class WordEditorComponent implements OnInit {
             }
           );
         } else {
-          console.warn('No notes found');
-
-          // actual form stuff
           this.addChapter();
         }
+
+        this.doneLoading = true;
       });
     },
       250);
@@ -103,5 +99,9 @@ export class WordEditorComponent implements OnInit {
 
   isSubjectSelected(){
     return this.currentSubject !== 'NONE';
+  }
+
+  isElementReady() {
+    return this.isSubjectSelected() && this.doneLoading;
   }
 }

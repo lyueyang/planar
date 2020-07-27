@@ -14,6 +14,7 @@ export class AssignmentsComponent implements OnInit {
   myAssignments: FormArray;
   submitArray: FormArray;
   private jsonResponse: any;
+  private doneLoading: boolean;
 
   @Input() currentSubject: string;
   @Input() subjectChosen: EventEmitter<boolean>;
@@ -24,6 +25,7 @@ export class AssignmentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.doneLoading = false;
     if (this.subjectChosen) {
       this.subjectChosen.subscribe(data => {
         this.loadAssignment();
@@ -57,10 +59,6 @@ export class AssignmentsComponent implements OnInit {
       const reply = this.assignmentHelper.fetchDataSync(this.currentSubject).then(data => {
         this.jsonResponse = JSON.parse(JSON.stringify(data));
         if (this.jsonResponse.length > 0) {
-          // console.warn('Assignments:');
-          // console.warn(data);
-
-          // actual form stuff
           this.jsonResponse.forEach(
             value => {
               this.myAssignments.push(
@@ -73,13 +71,12 @@ export class AssignmentsComponent implements OnInit {
             }
           );
         } else {
-          // console.warn('No assignments found');
-
-          // actual form stuff
           this.addAssignment();
         }
+
+        this.doneLoading = true;
       });
-    }, 500);
+    }, 250);
   }
 
   saveAssignments(){
@@ -106,9 +103,6 @@ export class AssignmentsComponent implements OnInit {
           assignmentDescription: referenceValue.assignmentDescription,
           deadline: this.myAssignments.at(index).value.deadline / 1000
         }));
-        // this.submitArray.at(index).patchValue({
-        //   deadline: this.myAssignments.at(index).value.deadline / 1000
-        // });
       }
     }
 
@@ -116,11 +110,14 @@ export class AssignmentsComponent implements OnInit {
     console.warn(this.submitArray);
 
     const reply = this.assignmentHelper.submitEditSync(this.currentSubject, this.submitArray.value).then(response => {
-      // console.warn(response);
     });
   }
 
   isSubjectSelected(){
     return this.currentSubject !== 'NONE';
+  }
+
+  isElementReady() {
+    return this.isSubjectSelected() && this.doneLoading;
   }
 }
