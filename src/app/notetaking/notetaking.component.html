@@ -41,7 +41,10 @@
       <button fxFill mat-button (click)="linkToTelegram()">Link to Telegram</button>
       <mat-divider></mat-divider>
       <div *ngIf="done">
-        <mat-calendar fxFlexFill [dateClass]="dateClass()" [selected]="selectedDate" (selectedChange)="onSelect($event)"></mat-calendar>
+        <mat-calendar fxFlexFill
+                      [dateClass]="dateClass()"
+                      [selected]="selectedDate"
+                      (selectedChange)="onSelect($event)"></mat-calendar>
       </div>
     </div>
   </mat-sidenav>
@@ -63,7 +66,8 @@
         <app-assignments
           fxFill
           [currentSubject]="selected"
-          [subjectChosen]="subjectChosen"></app-assignments>
+          [subjectChosen]="subjectChosen"
+          (assignmentsSaved)="saveEventHandler($event)"></app-assignments>
       </div>
       <div #wordEditor style="scroll-margin: 8px 8px 8px 8px">
         <app-word-editor

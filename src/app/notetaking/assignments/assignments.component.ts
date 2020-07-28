@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormBuilder, FormArray, FormGroup, Form, FormControl, AbstractControl} from '@angular/forms';
 import {AssignmentHelperService} from './assignment-helper.service';
@@ -18,6 +18,7 @@ export class AssignmentsComponent implements OnInit {
 
   @Input() currentSubject: string;
   @Input() subjectChosen: EventEmitter<boolean>;
+  @Output() assignmentsSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private snackBar: MatSnackBar,
               private formBuilder: FormBuilder,
@@ -53,6 +54,7 @@ export class AssignmentsComponent implements OnInit {
   removeAssignment(index: number) {
     this.assignmentHelper.removeItem(this.myAssignments.at(index).value.id).then();
     this.myAssignments.removeAt(index);
+    this.assignmentsSaved.emit(true);
   }
 
   loadAssignment() {
@@ -90,10 +92,6 @@ export class AssignmentsComponent implements OnInit {
   saveAssignments(){
     this.submitArray = this.formBuilder.array([]);
 
-    this.snackBar.open('Assignments Saved!', 'Dismiss', {
-      duration: 3000
-    });
-
     // remove empty rows
     let index: number;
     const workingArray = this.assignmentForm.getRawValue().myAssignments;
@@ -109,14 +107,18 @@ export class AssignmentsComponent implements OnInit {
         this.submitArray.push(this.formBuilder.group({
           id: referenceValue.id.toString(),
           assignmentDescription: referenceValue.assignmentDescription,
-          // deadline: this.myAssignments.at(index).value.deadline.getTime() / 1000
           deadline: this.myAssignments.at(index).value.deadline.toString().length < 1 ?
                       0 : this.myAssignments.at(index).value.deadline.getTime() / 1000
         }));
       }
     }
 
-    const reply = this.assignmentHelper.submitEditSync(this.currentSubject, this.submitArray.value).then();
+    const reply = this.assignmentHelper.submitEditSync(this.currentSubject, this.submitArray.value).then(r => {
+      this.snackBar.open('Assignments Saved!', 'Dismiss', {
+        duration: 3000
+      });
+      this.assignmentsSaved.emit(true);
+    });
   }
 
   isSubjectSelected(){

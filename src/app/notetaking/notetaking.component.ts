@@ -73,6 +73,11 @@ export class NotetakingComponent implements OnInit {
         }
       }
     );
+    this.getAssignmentDates();
+  }
+
+  getAssignmentDates() {
+    this.datesToHighlight = [];
     this.helperService.fetchDates().then(
       data => {
         this.modDate = JSON.parse(JSON.stringify(data));
@@ -88,7 +93,7 @@ export class NotetakingComponent implements OnInit {
           this.done = true;
         }
       }
-      );
+    );
   }
 
   isSubjectListEmpty() {
@@ -106,5 +111,11 @@ export class NotetakingComponent implements OnInit {
         .some(d => d.getDate() === date.getDate() && d.getMonth() === date.getMonth() && d.getFullYear() === date.getFullYear());
       return highlightDate ? 'date1' : '';
     };
+  }
+
+  saveEventHandler($event: any) {
+    if ($event) {
+
+    }
   }
 }
