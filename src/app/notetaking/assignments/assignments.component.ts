@@ -75,7 +75,7 @@ export class AssignmentsComponent implements OnInit {
                 this.formBuilder.group({
                   id: value.id.toString(),
                   assignmentDescription: value.assignmentDescription,
-                  deadline: value.deadline > 0 ? new Date((value.deadline - localtz + oneDay) * 1000) : ''
+                  deadline: value.deadline > 0 ? new Date((value.deadline + localtz + oneDay) * 1000) : ''
                 })
               );
             }
