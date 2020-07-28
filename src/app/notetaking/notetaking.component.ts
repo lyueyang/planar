@@ -115,7 +115,8 @@ export class NotetakingComponent implements OnInit {
 
   saveEventHandler($event: any) {
     if ($event) {
-
+      this.done = false;
+      this.getAssignmentDates();
     }
   }
 }
