@@ -128,4 +128,21 @@ export class AssignmentsComponent implements OnInit {
   isElementReady() {
     return this.isSubjectSelected() && this.doneLoading;
   }
+
+  hasDatePassed(index: number): boolean {
+    this.myAssignments = this.assignmentForm.get('myAssignments') as FormArray;
+    const assignment = this.myAssignments.at(index);
+
+    if (assignment.value.deadline === null || assignment.value.deadline.length === 0) {
+      return false;
+    } else {
+      // make comparison in UTC
+      let deadline: Date = new Date(assignment.value.deadline.getTime());
+      const currentDate: Date = new Date();
+
+      deadline = new Date(deadline.setDate(deadline.getDate() + 1));
+
+      return deadline.getTime() < currentDate.getTime();
+    }
+  }
 }

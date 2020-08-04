@@ -24,7 +24,8 @@
 
     <mat-card-content>
       <div formArrayName="myAssignments"
-           *ngFor='let assignment of myAssignments.controls; let i = index'>
+           *ngFor='let assignment of myAssignments.controls; let i = index'
+           [style.background-color] = "hasDatePassed(i) ? '#FF6666' : 'white'">
 
         <div fxLayout="row" id="text-field">
           <button mat-icon-button
