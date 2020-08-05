@@ -49,29 +49,28 @@
     </div>
   </mat-sidenav>
 
-  <mat-sidenav-content fxFlexFill fxLayout="row" fxLayoutAlign="start none" style="background-color: white;">
-    <button mat-icon-button
-            (click)="sidenav.toggle()"
-            *ngIf="!sidenav.opened"
-            matTooltip="Show Modules"
-            [matTooltipPosition]= "'right'"
-            [matTooltipShowDelay]= "500"
-            class="sidebar-toggle-button">
-      <i class="material-icons">
-        menu
-      </i>
-    </button>
-    <div fxFill>
+  <mat-sidenav-content fxLayout="column" style="background-color: white;">
+    <div fxLayout="column" fxLayoutAlign="stretch">
+      <button mat-icon-button
+              [disabled]="sidenav.opened"
+              [style.opacity]="sidenav.opened ? 0 : 1"
+              (click)="sidenav.toggle()"
+              matTooltip="Show Modules"
+              [matTooltipPosition]= "'right'"
+              [matTooltipShowDelay]= "500"
+              class="sidebar-toggle-button">
+        <i class="material-icons">
+          menu
+        </i>
+      </button>
       <div #assignments style="scroll-margin: 8px 8px 8px 8px">
         <app-assignments
-          fxFill
           [currentSubject]="selected"
           [subjectChosen]="subjectChosen"
           (assignmentsSaved)="saveEventHandler($event)"></app-assignments>
       </div>
       <div #wordEditor style="scroll-margin: 8px 8px 8px 8px">
         <app-word-editor
-          fxFill
           [currentSubject]="selected"
           [subjectChosen]="subjectChosen"></app-word-editor>
       </div>
