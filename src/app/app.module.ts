@@ -17,6 +17,8 @@ import { LoginComponent } from './components/login/login.component';
 import { NotetakingModule} from './notetaking/notetaking.module';
 import {LoadingPageModule} from './loading-page/loading-page.module';
 
+import {QuillModule} from 'ngx-quill';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +35,8 @@ import {LoadingPageModule} from './loading-page/loading-page.module';
     OAuthModule.forRoot(),
     ReactiveFormsModule,
     NotetakingModule,
-    LoadingPageModule
+    LoadingPageModule,
+    QuillModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
