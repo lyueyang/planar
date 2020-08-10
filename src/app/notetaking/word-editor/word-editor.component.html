@@ -38,7 +38,7 @@
         </button>
         <mat-form-field [formGroupName]="i" fxFlexFill>
           <mat-label>Chapter {{i + 1}}</mat-label>
-          <input matInput formControlName="notes">
+          <textarea cdkTextareaAutosize="true" matInput formControlName="notes"></textarea>
         </mat-form-field>
       </div>
     </mat-card-content>
