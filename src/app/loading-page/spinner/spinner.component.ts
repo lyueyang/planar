@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {OAuthService} from 'angular-oauth2-oidc';
-import {timeout} from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -39,6 +38,6 @@ export class SpinnerComponent implements OnInit {
           this.router.navigateByUrl('loginlanding');
         });
     },
-    250);
+    500);
   }
 }
