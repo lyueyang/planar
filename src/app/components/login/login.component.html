@@ -5,7 +5,15 @@
       <mat-card-title>Log in</mat-card-title>
     </mat-card-header>
 
-    <button *ngIf="isLoggedIn()" mat-stroked-button color="warn" class="btn-block" (click)="logout()">Logout</button>
+    <div fxLayout="column">
+      <button *ngIf="isLoggedIn()" mat-stroked-button color="warn" class="btn-block" (click)="logout()">Logout</button>
+      <button *ngIf="isLoggedIn()"
+              mat-stroked-button
+              class="btn-block"
+              routerLink="/notetaking"
+              routerLinkActive="active"
+              id="redirect">Go to notetaking page</button>
+    </div>
     <button *ngIf="!isLoggedIn()" mat-stroked-button color="accent" class="btn-block" (click)="login()">Log in with
       <img src="assets/images/google.svg">
     </button>
